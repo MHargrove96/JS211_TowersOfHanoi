@@ -23,7 +23,6 @@ let stacks = {
   c: []
 };
 
-// Start here. What is this function doing?
 const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
@@ -32,11 +31,9 @@ const printStacks = () => {
 
 const movePiece = (startingStack, endingStack) => {
   stacks[endingStack].push(stacks[startingStack].pop())
-  console.log('movePiece() being called')
-  // because isLegal() is never returning either of my first if statment move peice is not being called, but does work standalone ********** 
+  checkForWin()
 }
 
-// Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
 const isLegal = (startingStack, endingStack) => {
   let firstPiece = stacks[startingStack].toString()
   let secondPiece = stacks[endingStack].toString()
@@ -44,46 +41,38 @@ const isLegal = (startingStack, endingStack) => {
   let lastOfEnding = secondPiece.charAt(secondPiece.length - 1)
   // this feel like the longest way possible to get the affect i was after ********** 
 
-  console.log(lastOfStarting, 'lastOfStarting')
-  console.log(lastOfEnding, 'lastOfEnding')
-  // i do not know what lastOfEnding is before the first number is in that column null or undefined ********** 
-  console.log('isLegal() is being called')
-
-  if (lastOfStarting < lastOfEnding) {
-    movePiece(startingStack, endingStack);
-    console.log('first if')
-  } else if (lastOfStarting == 1 && lastOfEnding == null) {
-    console.log('second if')
-    movePiece(startingStack, endingStack);
+  if (lastOfStarting == '') {
+    console.log("Invalid move")
+    return false;
   } else {
-    console.log('invalid move')
+    if (lastOfStarting < lastOfEnding) {
+      movePiece(startingStack, endingStack);
+      return true;
+    } else if (lastOfEnding == '') {
+      movePiece(startingStack, endingStack);
+      return true; 
+    } else {
+      console.log('Invalid move');
+      return false;
+    }
   }
-  // something is wrong with my first to if statments cause they are never being called ********** 
 }
 
 
-// What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
-  // if the stacks look like this 
-  // a: [],
-  // b: [],
-  // c: [4, 3, 2, 1]
-  if (stacks.a == [] && stacks.b == [] && stacks.c == [4, 3, 2, 1]) {
-    return true
-  } else {
-    return false
+  if(stacks['c'].length == 4) {
+    console.log('We have got a winner!')
+    return true;
+  }  else {
+    return false;
   }
-  // is there a better way to do this? / not even sure this works cant test **********
 }
 
-// When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
   console.log('start', startStack)
   console.log('end', endStack)
-  // movePiece(startStack, endStack)
-  // movePiece() works on it own the problem is still isLegal() **********
+
   isLegal(startStack, endStack)
-  // trying to pass through isLegal() first ********** 
 }
 // ---------------------------------- test --------------------------------- test --------------------------- test -----------------------------------------------------------------
 const getPrompt = () => {
@@ -127,7 +116,7 @@ if (typeof describe === 'function') {
   });
   describe('#checkForWin()', () => {
     it('should detect a win', () => {
-      stacks = { a: [], b: [4, 3, 2, 1], c: [] }; // do i need to change this to stack c or is it testing this way for a reason?
+      stacks = { a: [], b: [], c: [4, 3, 2, 1] }; // do i need to change this to stack c or is it testing this way for a reason?
       assert.equal(checkForWin(), true);
       stacks = { a: [1], b: [4, 3, 2], c: [] };  // kinda the same question as above for this test. 
       assert.equal(checkForWin(), false);
