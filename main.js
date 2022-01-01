@@ -39,7 +39,6 @@ const isLegal = (startingStack, endingStack) => {
   let secondPiece = stacks[endingStack].toString()
   let lastOfStarting = firstPiece.charAt(firstPiece.length - 1)
   let lastOfEnding = secondPiece.charAt(secondPiece.length - 1)
-  // this feel like the longest way possible to get the affect i was after ********** 
 
   if (lastOfStarting == '') {
     console.log("Invalid move")
@@ -95,6 +94,13 @@ if (typeof describe === 'function') {
       assert.deepEqual(stacks, { a: [4, 3, 2], b: [1], c: [] });
     });
   });
+  // my test 1
+  describe('#movePiece()', () => {
+    it('should move a block', () => {
+      movePiece('b', 'a');
+      assert.deepEqual(stacks, { a: [4, 3, 2, 1], b: [], c: [] });
+    });
+  });
 
   describe('#isLegal()', () => {
     it('should not allow an illegal move', () => {
@@ -113,12 +119,21 @@ if (typeof describe === 'function') {
       };
       assert.equal(isLegal('a', 'c'), true);
     });
+    // my test 2
+    it('should detect an invalid move', () => {
+      stacks = {
+        a: [4, 3, 2, 1],
+        b: [],
+        c: []
+      };
+      assert.equal(isLegal('c', 'a'), false);
+    });
   });
   describe('#checkForWin()', () => {
     it('should detect a win', () => {
-      stacks = { a: [], b: [], c: [4, 3, 2, 1] }; // do i need to change this to stack c or is it testing this way for a reason?
+      stacks = { a: [], b: [], c: [4, 3, 2, 1] };
       assert.equal(checkForWin(), true);
-      stacks = { a: [1], b: [4, 3, 2], c: [] };  // kinda the same question as above for this test. 
+      stacks = { a: [1], b: [4, 3, 2], c: [] }; 
       assert.equal(checkForWin(), false);
     });
   });
