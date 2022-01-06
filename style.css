@@ -1,8 +1,10 @@
+
+
 [data-row] {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 34px;
+  height: 50px;
   margin: 25px;
   border: 1px solid lightgray;
 }

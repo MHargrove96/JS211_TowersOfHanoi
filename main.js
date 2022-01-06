@@ -57,7 +57,6 @@ const isLegal = (startingStack, endingStack) => {
   }
 }
 
-
 const checkForWin = () => {
   if(stacks['c'].length == 4) {
     console.log('We have got a winner!')
@@ -94,7 +93,7 @@ if (typeof describe === 'function') {
       assert.deepEqual(stacks, { a: [4, 3, 2], b: [1], c: [] });
     });
   });
-  // my test 1
+  // my test 1----------------------------------------
   describe('#movePiece()', () => {
     it('should move a block', () => {
       movePiece('b', 'a');
@@ -119,7 +118,7 @@ if (typeof describe === 'function') {
       };
       assert.equal(isLegal('a', 'c'), true);
     });
-    // my test 2
+    // my test 2----------------------------------------
     it('should detect an invalid move', () => {
       stacks = {
         a: [4, 3, 2, 1],
